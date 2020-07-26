@@ -1,7 +1,7 @@
 const userBaseUrl = '/api/v1/user'
 const postBaseUrl = '/api/v1/post'
 
-function login_page(e) {
+function login(e) {
     e.preventDefault();
     localStorage.clear();
     const username = $("#username").val();
@@ -11,12 +11,13 @@ function login_page(e) {
       url: userBaseUrl+'/login',
       data: { username , phone },
       contentType: 'application/x-www-form-urlencoded',
-      success: function(data, status, xhr) {
+      success: function(data) {
+        localStorage.setItem("id", data.id);
         window.location = '/post';
       },
       error: function(data) {
-        $("#loginError").text(data.responseText);
-        $('#loginError').css({
+        $("#login_message").text(data.responseText);
+        $('#login_message').css({
           "color": "red",
           "text-align": "center"
         });
@@ -44,8 +45,8 @@ function register(e) {
         window.location = '/';
       },
       error: function(data) {
-        $("#loginError").text(data.responseText);
-        $('#loginError').css({
+        $("#account_creation_message").text(data.responseText);
+        $('#account_creation_message').css({
           "color": "red",
           "text-align": "center"
         });
@@ -53,7 +54,8 @@ function register(e) {
    });
 }
 
-function postDetails(){
+function postDetails(e){
+  e.preventDefault();
   $.ajax({
       type : 'GET',
       url : postBaseUrl + '/view',
@@ -90,8 +92,8 @@ function postDetails(){
         })
       },
       error:function(data) {
-        $("#response2").text(data.responseText);
-        $('#response2').css({
+        $("#post_message").text(data.responseText);
+        $('#post_message').css({
           "display": "flex",
           "justify-content": "center",
           "color": "red",
@@ -128,8 +130,8 @@ function commentDetails(e){
         })
       },
       error:function(data) {
-        $("#response2").text(data.responseText);
-        $('#response2').css({
+        $("#comment_message").text(data.responseText);
+        $('#comment_message').css({
           "display": "flex",
           "justify-content": "center",
           "color": "red",
@@ -145,7 +147,8 @@ function add_post(e){
   $.ajax({
       type: "POST",
       url: postBaseUrl+'/create',
-      data: { post },
+      xhrFields : {withCredentials : true},
+      data: { post, id : localStorage.getItem('id') },
       contentType: 'application/x-www-form-urlencoded',
       success: function(data, status, xhr) {
          $("#new_post_message").text('Post successfully created');
@@ -171,10 +174,11 @@ function add_comment(e){
   $.ajax({
       type: "POST",
       url: postBaseUrl+'/comment',
-      data: { postid : post.id, comment },
+      data: { postid : post.id, comment, id : localStorage.getItem('id') },
+      xhrFields : {withCredentials : true},
       contentType: 'application/x-www-form-urlencoded',
       success: function(data, status, xhr) {
-         $("#new_comment_message").text('Post successfully created');
+         $("#new_comment_message").text('Comment successfully added');
         $('#new_comment_message').css({
           "color": "green",
           "text-align": "center"

@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Post</title>
+    <title>Comment</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,36 +36,30 @@
 </style>
 <body align="center">
     <br/>
-    <h1>Welcome</h1>
+    <h1>New Comment</h1>
     <br/>
         <div class="container">
     
         <div class="center">
-            <div class="loginform">
-                <div class="log">
-                    <p>SIGN IN</p>
-                </div>
                 
-                    <form id="login">
+                    <form>
 
                         <div class="form-group" >
                             <textarea rows="4" cols="50" placeholder="Add New comment" id="comment"></textarea>
                             <div class="help-block with-errors"></div>
 
                         </div>
-
+                        <br>
                         <div id="new_comment_message"></div>
-
+                        <br>
 
                         <div>
-                            <button onclick="add_comment(event)" type="submit" class="button" value="Login" id="loginbtn">Log In</button>
+                            <button onclick="add_comment(event)" type="submit" class="button" >Add Comment</button>
                         </div>
                         <br>
                     </form>
-            </div>
         </div>
     </div>
-    <!-- </form> -->
     <br/>
 </body>
 </html>

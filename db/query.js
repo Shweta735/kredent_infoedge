@@ -1,5 +1,4 @@
 const { Client } = require("pg");
-
 const db = {};
 
 let client;
@@ -21,9 +20,9 @@ db.init = async () => {
     //initializing the db
     await client.query(`CREATE TABLE IF NOT EXISTS users(id SERIAL UNIQUE,name varchar(50),phone varchar(15), username varchar(50))`);
     await client.query(`CREATE TABLE IF NOT EXISTS post(id SERIAL UNIQUE, post text,
-     posted_by bigint REFERENCES users(id),posted_on date DEFAULT CURRENT_TIMESTAMP) `);
+     posted_by bigint REFERENCES users(id),posted_on timestamp without time zone DEFAULT CURRENT_TIMESTAMP) `);
     await client.query(`CREATE TABLE IF NOT EXISTS comment(id SERIAL UNIQUE,
-     comment text, post_id bigint REFERENCES post(id),commented_on date DEFAULT CURRENT_TIMESTAMP,
+     comment text, post_id bigint REFERENCES post(id),commented_on timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
      commented_by bigint REFERENCES users(id) )`);
     await client.query(`CREATE INDEX IF NOT EXISTS post_idx on comment (post_id)`);
 } catch (err) {
@@ -33,6 +32,16 @@ db.init = async () => {
 }
 };
 
+db.checkForExistence = async(value) =>{
+  try{
+    createClient();
+    const res = await client.query(`SELECT id FROM users where username = $1 or phone = $2;`, value);
+    return res;
+  }catch(err){
+    throw new Error(err)
+  }
+}
+
 db.insertRow = async(tablename, keys, value) =>{
   try{
     createClient();
@@ -41,7 +50,6 @@ db.insertRow = async(tablename, keys, value) =>{
       flatValueParamString += `$${i+1},`;
     }
     flatValueParamString = flatValueParamString.slice(0, -1);
-    console.log(`INSERT INTO ${tablename}( ${keys.join()} ) VALUES (${flatValueParamString}) RETURNING id`, value)
     const res = await client.query(`INSERT INTO ${tablename}( ${keys.join()} ) VALUES (${flatValueParamString}) RETURNING id`,value);
     return res;
   }catch(err){
@@ -58,7 +66,6 @@ db.selectOnKeys = async(tablename,keys,value) =>{
       q += `${keys[i]} = $${index} AND `;
     }
     q = q.slice(0, -5);
-    console.log(`SELECT ${keys.join()} FROM ${tablename} where ${q};`)
     const res = await client.query(`SELECT * FROM ${tablename} where ${q};`, value);
     return res;
   }catch(err){
@@ -95,8 +102,6 @@ db.getCommentsOnPost = async(postIdArray) =>{
 db.getCommentOnSpecificPost   = async(value) =>{
    try{
     createClient();
-    console.log(`SELECT post_id,comment, name, commented_on from comment 
-      inner join users on users.id = comment.commented_by where post_id = $1 `, value)
     const res = await client.query(`SELECT post_id,comment, name, commented_on from comment 
       inner join users on users.id = comment.commented_by where post_id = $1 `, value);
     return res;

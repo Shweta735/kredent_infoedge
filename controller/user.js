@@ -1,41 +1,41 @@
-
+const phone = require('phone');
+const moment = require('moment');
 const db = require('../db/query'); 
-// const cookie_options =  { "maxAge" : 2700000, "httpOnly": true, "secure": false , "domain" : "localhost"};
-// const jwt = require('jsonwebtoken');
+
 
 const user = {};
 
 user.register = async(req,res) =>{
- console.log('Register teacher');
- const { username, phone, name } = req.body;
- if(!name || !phone || !username){
- 	return res.status(400).send('Mandatory data missing')
+ console.log('Register user');
+ const { username, phone : phoneNumber, name } = req.body;
+ if(!name || !phoneNumber || !username){
+ 	return res.status(400).send('Provide all the information')
  }
- //add valid phone check
- await db.insertRow('users',['username','phone','name'],[username,phone,name]);
- return res.status(200).send('Success')
+ const phoneChk = phone(phoneNumber, 'IN');
+ if(phoneChk.length){
+   const user = await db.checkForExistence([username,phoneChk[0]]);
+   if(user.rowCount)
+     return res.status(400).send('Phone number or username exists');
+   await db.insertRow('users',['username','phone','name'],[username,phoneChk[0],name]);
+   return res.status(200).send('Success');
+ }
+ return res.status(400).send('Invalid phone number')
 }
 
 user.login = async(req,res) =>{
- console.log('Login teacher');
+ console.log('Login user');
 
- const { username, phone } = req.body;
+ const { username, phone: phoneNumber } = req.body;
 
  if(!username || !phone){
  	return res.status(400).send('Mandatory data missing')
  }
-
- const user = await db.selectOnKeys('users',['username', 'phone'],[username,phone]);
+ const phoneChk = phone(phoneNumber, 'IN'); 
+ const user = await db.selectOnKeys('users',['username', 'phone'],[username,phoneChk[0]]);
  if(!user.rowCount){
  	return res.status(400).send('Incorrect username or password')
  }
- const post = await db.getPost();
- // console.log(post.rows)
- // const { id, schoolid } = teacher.rows[0];
- // const token = jwt.sign({id: id,school : schoolid}, 'ABCD', { expiresIn: '7d' });
- // res.cookie('X-Token', token, cookie_options);
- // return res.redirect(`http://${req.headers.host}/post`);
- res.status(200).send('Success')
+ return res.status(200).send({id : user.rows[0].id})
 }
 
 module.exports.user = user;

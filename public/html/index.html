@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Products</title>
+	<title>Sign In</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -53,39 +53,21 @@
                             <input type="text" class="form-control" id="phone" placeholder="Phone" name="phone" required/>
                             <div class="help-block with-errors"></div>
                         </div>
+                        <br>
+                        <div id="login_message"></div>
 
-                        <div id="loginError"></div>
-
-
+                        <br>
                         <div>
-                            <button onclick="login_page(event)" type="submit" class="button" value="Login" id="loginbtn">Log In</button>
+                            <button onclick="login(event)" type="submit" class="button" value="Login" id="loginbtn">Log In</button>
                         </div>
                         <br>
                         <div class="text-center">
-                            <a class="forgot" href="/register">Forgot Password?</a>
+                            <a class="forgot" href="/register">New User? Sign Up</a>
                         </div>
                     </form>
             </div>
         </div>
     </div>
-	<!-- </form> -->
 	<br/>
-	<!-- <form action="/products/get" method="GET">
-		<h3>Want to see all the already created products? Click the button below</h3>
-		<input type="submit" name="submit" value="Get All Products" >
-	</form>
-	<br/>
-	<form action="/products/update" method="POST">
-		<h3>Want to edit an already created product? Provide the input and click on edit</h3>
-		<input type="text" name="name" placeholder="Name">
-		<input type="text" name="price" placeholder="Price">
-		<input type="submit" name="submit" value="Edit">
-	</form>
-	<br/>
-	<form action="/products/delete" method="POST">
-		<h3>Want to delete a product? Provide the name and click on delete</h3>
-		<input type="text" name="name" placeholder="Name">
-		<input type="submit" name="submit" value="Delete">
-	</form> -->
 </body>
 </html>
