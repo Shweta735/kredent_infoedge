@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/function.js"></script>
+</head>
+<style>
+  body{
+    background-color: #fff;
+        font-family: sans-serif;
+     }
+  h1 {
+        font-size: 35px;
+        font-weight: 400;
+        text-align: center;
+        }
+    h3{
+        font-size: 27px;
+        font-weight: 200;
+        text-align: center;
+       }
+     form{
+      text-align: center;
+     }
+     input{
+      height : 30px;
+     }
+</style>
+<body align="center">
+  <br/>
+  <h1>ACCOUNT CREATION</h1>
+  <br/>
+  <!-- <form action="/products/create" method="POST"> -->
+    <div class="container">
+        <div class="image">
+                <!-- <img src="../img/logo2.png" alt="Caramel IOT" /> -->
+        </div>
+    
+        <div class="center">
+            <div class="loginform">
+                <div class="log">
+                    <!-- <p>CREATE ACCOUNT</p> -->
+                </div>
+                
+                    <form id="register">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Fullname" name="name" required/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="username" placeholder="Username" name="username" required/>
+                            <div class="help-block with-errors"></div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="phone" placeholder="Phone" name="phone" required/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div id="account_creation_message"></div>
+
+
+                        <div>
+                            <button onclick="register(event)" type="submit" class="button" value="Login" id="loginbtn">Sign Up</button>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <a class="forgot" href="/register">Forgot Password?</a>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+  <br/>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-------- THIS IS DASHBOARD PAGE  ---------->
+<html>
+
+<head>
+    <title>Post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+    <script type="text/javascript" src="../js/function.js"></script>
+</head>
+<script>
+    $(document).ready(function(){
+      document.getElementById('create_one').onclick = function(){
+      window.location = '/create_post';
+     }
+    })
+</script>
+
+<body class="page" onload="postDetails(event)">
+    <div class="container-fluid">
+        <div class="main_container">
+            <!--------- Page Content -------->
+            <div class="right_col" role="main" >
+                <div class="row1">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel"> 
+                            <div>
+                               <button class="btn btn-primary" id="create_one" style="margin-bottom: -60px;">Create New</button>   
+                            </div>
+                            <br>
+                            <table id="post" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Post</th>
+                                        <th>Created By</th>
+                                        <th>Created On</th>
+                                        <th>No of comments</th>
+                                        <th>Post Id</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div id="post_message"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

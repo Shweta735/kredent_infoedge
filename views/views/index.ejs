@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Products</title>
+</head>
+<style>
+	body{
+		background-color: #ADD8E6;
+        font-family: sans-serif;
+     }
+	h1 {
+        font-size: 35px;
+        font-weight: 400;
+        text-align: center;
+        }
+    h3{
+        font-size: 27px;
+       	font-weight: 200;
+       	text-align: center;
+       }
+     form{
+     	text-align: center;
+     }
+     input{
+     	height : 30px;
+     }
+</style>
+<body align="center">
+</body>
+	<br/>
+	<h1>Welcome</h1>
+	<br/>
+	<form action="/products/create" method="POST">
+		<h3>Want to create a new product? Provide name and price and click on create</h3>
+		<input type="text" name="name" placeholder="Name">
+		<input type="text" name="price" placeholder="Price">
+		<input type="submit" name="submit" value="Create">
+	</form>
+	<br/>
+	<form action="/products/get" method="GET">
+		<h3>Want to see all the already created products? Click the button below</h3>
+		<input type="submit" name="submit" value="Get All Products" >
+	</form>
+	<br/>
+	<form action="/products/update" method="POST">
+		<h3>Want to edit an already created product? Provide the input and click on edit</h3>
+		<input type="text" name="name" placeholder="Name">
+		<input type="text" name="price" placeholder="Price">
+		<input type="submit" name="submit" value="Edit">
+	</form>
+	<br/>
+	<form action="/products/delete" method="POST">
+		<h3>Want to delete a product? Provide the name and click on delete</h3>
+		<input type="text" name="name" placeholder="Name">
+		<input type="submit" name="submit" value="Delete">
+	</form>
+</body>
+</html>

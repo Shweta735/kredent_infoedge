@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--------- THIS IS ADD SCHOOL ---------->
+<html>
+
+<head>
+    <title>Post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/function.js"></script>
+</head>
+
+<style>
+    body{
+        background-color: #fff;
+        font-family: sans-serif;
+     }
+    h1 {
+        font-size: 35px;
+        font-weight: 400;
+        text-align: center;
+        }
+    h3{
+        font-size: 27px;
+        font-weight: 200;
+        text-align: center;
+       }
+     form{
+        text-align: center;
+     }
+     input{
+        height : 30px;
+     }
+</style>
+<body align="center">
+    <br/>
+    <h1>Welcome</h1>
+    <br/>
+        <div class="container">
+    
+        <div class="center">
+            <div class="loginform">
+                <div class="log">
+                    <p>SIGN IN</p>
+                </div>
+                
+                    <form id="login">
+
+                        <div class="form-group" >
+                            <textarea rows="4" cols="50" placeholder="Add New comment" id="comment"></textarea>
+                            <div class="help-block with-errors"></div>
+
+                        </div>
+
+                        <div id="new_comment_message"></div>
+
+
+                        <div>
+                            <button onclick="add_comment(event)" type="submit" class="button" value="Login" id="loginbtn">Log In</button>
+                        </div>
+                        <br>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <!-- </form> -->
+    <br/>
+</body>
+</html>

@@ -1,0 +1,191 @@
+const userBaseUrl = '/api/v1/user'
+const postBaseUrl = '/api/v1/post'
+
+function login_page(e) {
+    e.preventDefault();
+    localStorage.clear();
+    const username = $("#username").val();
+    const phone = $("#phone").val();
+    $.ajax({
+      type: "POST",
+      url: userBaseUrl+'/login',
+      data: { username , phone },
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data, status, xhr) {
+        window.location = '/post';
+      },
+      error: function(data) {
+        $("#loginError").text(data.responseText);
+        $('#loginError').css({
+          "color": "red",
+          "text-align": "center"
+        });
+      },
+   });
+}
+
+function register(e) {
+    e.preventDefault();
+    localStorage.clear();
+    const username = $("#username").val();
+    const phone = $("#phone").val();
+    const name = $("#name").val();
+    $.ajax({
+      type: "POST",
+      url: userBaseUrl+'/register',
+      data: { username , phone, name },
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data, status, xhr) {
+        $("#account_creation_message").text('Account successfully created');
+        $('#account_creation_message').css({
+          "color": "green",
+          "text-align": "center"
+        });
+        window.location = '/';
+      },
+      error: function(data) {
+        $("#loginError").text(data.responseText);
+        $('#loginError').css({
+          "color": "red",
+          "text-align": "center"
+        });
+      },
+   });
+}
+
+function postDetails(){
+  $.ajax({
+      type : 'GET',
+      url : postBaseUrl + '/view',
+      xhrFields : {withCredentials : true},
+      success:function(data) {
+        const table = $("#post").removeAttr('width').DataTable({
+           scrollY:       "900px",
+           scrollX:        true,
+           scrollCollapse: true,
+           paging:         false,
+           data: data,
+           columns: [{
+             "data": "post"
+           },
+           {
+              "data": "name"
+            },
+            {
+              "data" : "posted_on"
+            },
+            {
+              "data" : "comments"
+            },
+            {
+              "data" : "id",
+              "visible" : false
+            }
+          ]
+        })
+        $("#post tbody").on('click','td',function(){
+          const data = (table.row( this ).data());
+          localStorage.setItem("post", JSON.stringify(data));
+          window.location = '/view_comment';
+        })
+      },
+      error:function(data) {
+        $("#response2").text(data.responseText);
+        $('#response2').css({
+          "display": "flex",
+          "justify-content": "center",
+          "color": "red",
+          "font-size": "larger"
+        })  
+      }
+    })
+}
+
+function commentDetails(e){
+  e.preventDefault();
+  const post = JSON.parse(localStorage.getItem('post'));
+  $.ajax({
+      type : 'GET',
+      url : postBaseUrl + `/comment/${post.id}`,
+      xhrFields : {withCredentials : true},
+      success:function(data) {
+        const table = $("#comment").removeAttr('width').DataTable({
+           scrollY:       "900px",
+           scrollX:        true,
+           scrollCollapse: true,
+           paging:         false,
+           data: data,
+           columns: [{
+             "data": "comment"
+           },
+           {
+              "data": "name"
+            },
+            {
+              "data" : "commented_on"
+            },
+          ]
+        })
+      },
+      error:function(data) {
+        $("#response2").text(data.responseText);
+        $('#response2').css({
+          "display": "flex",
+          "justify-content": "center",
+          "color": "red",
+          "font-size": "larger"
+        })  
+      }
+    })
+}
+
+function add_post(e){
+  e.preventDefault();
+  const post = $("#post").val();
+  $.ajax({
+      type: "POST",
+      url: postBaseUrl+'/create',
+      data: { post },
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data, status, xhr) {
+         $("#new_post_message").text('Post successfully created');
+        $('#new_post_message').css({
+          "color": "green",
+          "text-align": "center"
+        });
+      },
+      error: function(data) {
+        $("#new_post_message").text(data.responseText);
+        $('#new_post_message').css({
+          "color": "red",
+          "text-align": "center"
+        });
+      },
+   });
+}
+
+function add_comment(e){
+  e.preventDefault();
+  const comment = $("#comment").val();
+  const post = JSON.parse(localStorage.getItem('post'));
+  $.ajax({
+      type: "POST",
+      url: postBaseUrl+'/comment',
+      data: { postid : post.id, comment },
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data, status, xhr) {
+         $("#new_comment_message").text('Post successfully created');
+        $('#new_comment_message').css({
+          "color": "green",
+          "text-align": "center"
+        });
+      },
+      error: function(data) {
+        $("#new_comment_message").text(data.responseText);
+        $('#new_comment_message').css({
+          "color": "red",
+          "text-align": "center"
+        });
+      },
+   });
+}
