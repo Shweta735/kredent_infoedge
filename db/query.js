@@ -6,10 +6,10 @@ let client;
 
 const createClient = ()=>{
   client = new Client({
-    user: "postgres",
-    host: "localhost",
-    database: "kredent",
-    password: '1234',
+    user: "qlsrssesdjutxw",
+    host: "ec2-52-204-232-46.compute-1.amazonaws.com",
+    database: "d92tole5gntqj",
+    password: '2c94d6e8f133076bb52a705c6b7796d090b755949420fae63cef473d9012f92d',
     port: "5432"
   });
   client.connect();
