@@ -61,6 +61,9 @@ function postDetails(e){
       url : postBaseUrl + '/view',
       xhrFields : {withCredentials : true},
       success:function(data) {
+        for(let i=0;i<data.length;i++){
+          data[i].posted_on =  moment.utc(data[i].posted_on, 'DD-MM-YYYY HH:mm:ss').local().format('DD/MM/YYYY h:mm:ss a');
+        }
         const table = $("#post").removeAttr('width').DataTable({
            scrollY:       "900px",
            scrollX:        true,
@@ -111,6 +114,9 @@ function commentDetails(e){
       url : postBaseUrl + `/comment/${post.id}`,
       xhrFields : {withCredentials : true},
       success:function(data) {
+        for(let i=0;i<data.length;i++){
+          data[i].commented_on =  moment.utc(data[i].commented_on, 'DD-MM-YYYY HH:mm:ss').local().format('DD/MM/YYYY h:mm:ss a');
+        }
         const table = $("#comment").removeAttr('width').DataTable({
            scrollY:       "900px",
            scrollX:        true,
